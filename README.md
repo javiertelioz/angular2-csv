@@ -53,6 +53,7 @@ new Angular2Csv(data, 'My Report');
 | **showLabels** | false      | If provided, would use this attribute to create a header row |
 | **showTitle** | false      |   |
 | **useBom** | true      | If true, adds a BOM character at the start of the CSV |
+| **overrideSystemSeparator** | false   | If true, it specifies the separator inside the CSV file. This allows Excel to override user's system regional settings and always display the file correctly.
 
 
 **Example**
@@ -65,7 +66,8 @@ new Angular2Csv(data, 'My Report');
     decimalseparator: '.',
     showLabels: true, 
     showTitle: true,
-    useBom: true
+    useBom: true,
+    overrideSystemSeparator: true
   };
 
   Angular2Csv(data, filename, options);

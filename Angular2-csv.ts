@@ -7,6 +7,7 @@ export interface Options {
 	showTitle: boolean;
 	title: string;
 	useBom: boolean;
+	overrideSystemSeparator: boolean;
 }
 
 export class CsvConfigConsts {
@@ -22,6 +23,7 @@ export class CsvConfigConsts {
 	public static DEFAULT_FILENAME = 'mycsv.csv';
 	public static DEFAULT_SHOW_LABELS = false;
 	public static DEFAULT_USE_BOM = true;
+	public static DEFAULT_OVERRIDE_SYSTEM_SEPARATOR = false;
 
 }
 
@@ -33,7 +35,8 @@ export const ConfigDefaults: Options = {
 	showLabels: 				CsvConfigConsts.DEFAULT_SHOW_LABELS,
 	showTitle:					CsvConfigConsts.DEFAULT_SHOW_TITLE,
 	title: 							CsvConfigConsts.DEFAULT_TITLE,
-	useBom:					CsvConfigConsts.DEFAULT_USE_BOM
+	useBom:					CsvConfigConsts.DEFAULT_USE_BOM,
+	overrideSystemSeparator:	CsvConfigConsts.DEFAULT_OVERRIDE_SYSTEM_SEPARATOR
 };
 export class Angular2Csv {
 
@@ -63,6 +66,10 @@ export class Angular2Csv {
 	private generateCsv(): void {
 		if(this._options.useBom) {
 			this.csv += CsvConfigConsts.BOM;
+		}
+		
+		if(this._options.overrideSystemSeparator) {
+			this.csv += 'sep=' + this._options.fieldSeparator + CsvConfigConsts.EOL;
 		}
 
 		if(this._options.showTitle) {

@@ -9,15 +9,14 @@
     "declaration": true,
     "lib": [
       "dom",
-      "es2015.collection",
-      "es2015.promise",
+      "es2017",
       "es5"
     ],
     "moduleResolution": "node"
   },
   "files": [
-    "Angular2-csv.ts",
-    "Angular2-csv.spec.ts",
+    "Angular5-csv.ts",
+    "Angular5-csv.spec.ts",
     "custom.d.ts"
   ],
   "exclude": [

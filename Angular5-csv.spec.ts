@@ -1,7 +1,6 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async } from '@angular/core/testing';
-import { Angular2Csv } from './Angular2-csv';
+import { Angular5Csv } from './Angular5-csv';
 
 describe('Component: Angular2Csv', () => {
   it('should create an file with name My_Report.csv', () => {
@@ -29,7 +28,7 @@ describe('Component: Angular2Csv', () => {
   		},
   	];
 
-  	let component = new Angular2Csv(data, 'My Report');
+  	let component = new Angular5Csv(data, 'My Report');
   	expect(component).toBeTruthy();
   });
 });

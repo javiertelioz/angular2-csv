@@ -1,18 +1,18 @@
-# Angular2-csv | Export to CSV  in Angular2
+# Angular5-csv | Export to CSV  in Angular5
 
-> Helper library for create CSV file in Angular2
+> Helper library for create CSV file in Angular5
 > 
 
 ## Installation
 
 ```javascript
-npm install --save angular2-csv
+npm install --save angular5-csv
 ```
 
 ## Example
 ```javascript
 
-import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import { Angular5Csv } from 'angular5-csv/Angular5-csv';
 
 var data = [
   {
@@ -38,11 +38,11 @@ var data = [
   },
 ];
 
-new Angular2Csv(data, 'My Report');
+new Angular5Csv(data, 'My Report');
 
 ```
 
-## API | **Angular2Csv(data, filename, options)**
+## API | **Angular5Csv(data, filename, options)**
 
 
 | Option        | Default           | Description  |

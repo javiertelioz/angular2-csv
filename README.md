@@ -68,10 +68,10 @@ new Angular5Csv(data, 'My Report');
     useBom: true
   };
 
-  Angular2Csv(data, filename, options);
+  Angular5Csv(data, filename, options);
 
 ```
-#Credits
+# Credits
 ---
 
 |                |

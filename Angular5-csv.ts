@@ -8,6 +8,7 @@ export interface Options {
     title: string;
     useBom: boolean;
     headers: string[];
+    noDownload: boolean;
 }
 
 export class CsvConfigConsts {
@@ -24,6 +25,7 @@ export class CsvConfigConsts {
     public static DEFAULT_SHOW_LABELS = false;
     public static DEFAULT_USE_BOM = true;
     public static DEFAULT_HEADER: any[] = [];
+    public static DEFAULT_NO_DOWNLOAD = false;
 
 }
 
@@ -36,7 +38,8 @@ export const ConfigDefaults: Options = {
     showTitle: CsvConfigConsts.DEFAULT_SHOW_TITLE,
     title: CsvConfigConsts.DEFAULT_TITLE,
     useBom: CsvConfigConsts.DEFAULT_USE_BOM,
-    headers: CsvConfigConsts.DEFAULT_HEADER
+    headers: CsvConfigConsts.DEFAULT_HEADER,
+    noDownload: CsvConfigConsts.DEFAULT_NO_DOWNLOAD
 };
 
 export class Angular5Csv {
@@ -65,7 +68,7 @@ export class Angular5Csv {
     /**
      * Generate and Download Csv
      */
-    private generateCsv(): void {
+    private generateCsv() {
         if (this._options.useBom) {
             this.csv += CsvConfigConsts.BOM;
         }
@@ -80,6 +83,10 @@ export class Angular5Csv {
         if (this.csv == '') {
             console.log("Invalid data");
             return;
+        }
+
+        if(this._options.noDownload) {
+            return this.csv;
         }
 
         let blob = new Blob([this.csv], {"type": "text/csv;charset=utf8;"});

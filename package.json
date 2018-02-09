@@ -1,6 +1,6 @@
 {
   "name": "angular5-csv",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Helper library for create CSV file in Angular 5",
   "repository": {
     "type": "git",
@@ -24,6 +24,9 @@
   ],
   "author": "Abdullah Alhazmy",
   "email": "me@alhazmy13.net",
+  "contributors": [
+    { "name": "Davor Peic - Krushka Design", "email": "info@krushka.mx" }
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/alhazmy13/angular5-csv/issues"

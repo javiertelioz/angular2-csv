@@ -53,6 +53,7 @@ new Angular5Csv(data, 'My Report');
 | **showLabels** | false      | If provided, would use this attribute to create a header row |
 | **showTitle** | false      |   |
 | **useBom** | true      | If true, adds a BOM character at the start of the CSV |
+| **noDownload** | false      | If true, disables automatic download and returns only formatted CSV |
 
 
 **Example**
@@ -65,7 +66,8 @@ new Angular5Csv(data, 'My Report');
     decimalseparator: '.',
     showLabels: true, 
     showTitle: true,
-    useBom: true
+    useBom: true,
+    noDownload: true
   };
 
   Angular5Csv(data, filename, options);

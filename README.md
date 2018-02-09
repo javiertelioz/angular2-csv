@@ -12,7 +12,7 @@ npm install --save angular5-csv
 ## Example
 ```javascript
 
-import { Angular5Csv } from 'angular5-csv2/dest/Angular5-csv';
+import { Angular5Csv } from 'angular5-csv2/Angular5-csv';
 
 var data = [
   {

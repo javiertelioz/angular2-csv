@@ -1,10 +1,10 @@
 {
-  "name": "angular5-csv2",
+  "name": "angular5-csv",
   "version": "0.2.6",
   "description": "Helper library for create CSV file in Angular 5",
   "repository": {
     "type": "git",
-    "url": "https://github.com/krushkamx/angular5-csv.git"
+    "url": "https://github.com/alhazmy13/angular5-csv.git"
   },
   "scripts": {
     "dev": "tsc --watch",
@@ -22,15 +22,18 @@
     "libreoffice",
     "openoffice"
   ],
-  "author": "Krushka Design",
-  "email": "info@krushka.mx",
+  "author": "Abdullah Alhazmy",
+  "email": "me@alhazmy13.net",
+  "contributors": [
+    { "name": "Davor Peic - Krushka Design", "email": "info@krushka.mx" }
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/krushkamx/angular5-csv/issues"
+    "url": "https://github.com/alhazmy13/angular5-csv/issues"
   },
   "main": "./dist/Angular2-csv.js",
   "typings": "/dist/Angular2-csv.d.ts",
-  "homepage": "https://github.com/krushkamx/angular5-csv#readme",
+  "homepage": "https://github.com/alhazmy13/angular5-csv#readme",
   "devDependencies": {
     "@angular/common": "^5.0.0",
     "@angular/core": "^5.0.0",

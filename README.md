@@ -1,18 +1,18 @@
-# Angular2-csv | Export to CSV  in Angular2
+# Angular5-csv | Export to CSV  in Angular5
 
-> Helper library for create CSV file in Angular2
+> Helper library for create CSV file in Angular5
 > 
 
 ## Installation
 
 ```javascript
-npm install --save angular2-csv
+npm install --save angular5-csv
 ```
 
 ## Example
 ```javascript
 
-import { Angular2Csv } from 'angular2-csv/Angular2-csv';
+import { Angular5Csv } from 'angular5-csv/Angular5-csv';
 
 var data = [
   {
@@ -38,11 +38,11 @@ var data = [
   },
 ];
 
-new Angular2Csv(data, 'My Report');
+new Angular5Csv(data, 'My Report');
 
 ```
 
-## API | **Angular2Csv(data, filename, options)**
+## API | **Angular5Csv(data, filename, options)**
 
 
 | Option        | Default           | Description  |
@@ -53,6 +53,7 @@ new Angular2Csv(data, 'My Report');
 | **showLabels** | false      | If provided, would use this attribute to create a header row |
 | **showTitle** | false      |   |
 | **useBom** | true      | If true, adds a BOM character at the start of the CSV |
+| **noDownload** | false      | If true, disables automatic download and returns only formatted CSV |
 
 
 **Example**
@@ -65,13 +66,14 @@ new Angular2Csv(data, 'My Report');
     decimalseparator: '.',
     showLabels: true, 
     showTitle: true,
-    useBom: true
+    useBom: true,
+    noDownload: true
   };
 
-  Angular2Csv(data, filename, options);
+  Angular5Csv(data, filename, options);
 
 ```
-#Credits
+# Credits
 ---
 
 |                |

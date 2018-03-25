@@ -53,6 +53,7 @@ new Angular2Csv(data, 'My Report');
 | **showLabels** | false      | If provided, would use this attribute to create a header row |
 | **showTitle** | false      |   |
 | **useBom** | true      | If true, adds a BOM character at the start of the CSV |
+| **removeNewLines** | false      | If true, remove new lines from columns (Helps to remove special characters that can't recognized) |
 
 
 **Example**
@@ -65,7 +66,8 @@ new Angular2Csv(data, 'My Report');
     decimalseparator: '.',
     showLabels: true, 
     showTitle: true,
-    useBom: true
+    useBom: true,
+    removeNewLines: false
   };
 
   Angular2Csv(data, filename, options);

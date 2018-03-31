@@ -3,11 +3,10 @@ export interface Options {
 	fieldSeparator: string;
 	quoteStrings: string;
 	decimalseparator:string;
-	showLabels: boolean;
 	showTitle: boolean;
 	title: string;
 	useBom: boolean;
-    	headers: string[];
+	headers: string[];
 }
 
 export class CsvConfigConsts {
@@ -21,9 +20,8 @@ export class CsvConfigConsts {
 	public static DEFAULT_SHOW_TITLE = false;
 	public static DEFAULT_TITLE = 'My Report';
 	public static DEFAULT_FILENAME = 'mycsv.csv';
-	public static DEFAULT_SHOW_LABELS = false;
 	public static DEFAULT_USE_BOM = true;
-    	public static DEFAULT_HEADER = [];
+	public static DEFAULT_HEADER: string[] = [];
 
 }
 
@@ -32,16 +30,14 @@ export const ConfigDefaults: Options = {
 	fieldSeparator:			CsvConfigConsts.DEFAULT_FIELD_SEPARATOR,
 	quoteStrings:				CsvConfigConsts.DEFAULT_QUOTE,
 	decimalseparator:		CsvConfigConsts.DEFAULT_DECIMAL_SEPARATOR,
-	showLabels: 				CsvConfigConsts.DEFAULT_SHOW_LABELS,
 	showTitle:					CsvConfigConsts.DEFAULT_SHOW_TITLE,
 	title: 							CsvConfigConsts.DEFAULT_TITLE,
 	useBom:					CsvConfigConsts.DEFAULT_USE_BOM,
-    	headers: CsvConfigConsts.DEFAULT_HEADER
+	headers: CsvConfigConsts.DEFAULT_HEADER
 };
 export class Angular2Csv {
 
 	public fileName: string;
-	public labels: Array<String>;
 	public data: any[];
 
 	private _options: Options;

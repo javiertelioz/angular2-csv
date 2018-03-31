@@ -63,7 +63,7 @@ new Angular2Csv(data, 'My Report');
     fieldSeparator: ',',
     quoteStrings: '"',
     decimalseparator: '.',
-    showLabels: true, 
+    headers: ['column 1 header', 'column 2 header'],
     showTitle: true,
     useBom: true
   };

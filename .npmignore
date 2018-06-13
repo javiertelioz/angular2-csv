@@ -6,7 +6,6 @@ Thumbs.db
 .DS_Store
 
 # TypeScript source files, apart generated type definitions
-*.ts
 !*.d.ts
 
 # Other generated files

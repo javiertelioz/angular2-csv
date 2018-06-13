@@ -43,8 +43,6 @@ export const ConfigDefaults: Options = {
 
 export class Angular2Csv {
 
-    public fileName: string;
-    public labels: Array<String>;
     public data: any[];
 
     private _options: Options;
@@ -53,7 +51,7 @@ export class Angular2Csv {
     constructor(DataJSON: any, filename: string, options?: any) {
         let config = options || {};
 
-        this.data = typeof DataJSON != 'object' ? JSON.parse(DataJSON) : DataJSON;
+        this.data = typeof DataJSON !== 'object' ? JSON.parse(DataJSON) : DataJSON;
 
         this._options = objectAssign({}, ConfigDefaults, config);
 
@@ -79,7 +77,7 @@ export class Angular2Csv {
         this.getHeaders();
         this.getBody();
 
-        if (this.csv == '') {
+        if (this.csv === '') {
             console.log('Invalid data');
             return;
         }
@@ -107,7 +105,7 @@ export class Angular2Csv {
     /**
      * Create Headers
      */
-    getHeaders(): void {
+    private getHeaders(): void {
         if (this._options.headers.length > 0) {
             let row = '';
             for (let column of this._options.headers) {
@@ -122,12 +120,11 @@ export class Angular2Csv {
     /**
      * Create Body
      */
-    getBody() {
+    private getBody() {
         for (let i = 0; i < this.data.length; i++) {
             let row = '';
             if (this._options.keys && this._options.keys.length > 0) {
-                for (let index in this._options.keys) {
-                    let key = this._options.keys[index];
+                for (let key of this._options.keys) {
                     row += this.formartData(this.data[i][key]) + this._options.fieldSeparator;
                 }
                 row = row.slice(0, -1);
@@ -147,7 +144,7 @@ export class Angular2Csv {
      * Format Data
      * @param {any} data
      */
-    formartData(data: any) {
+    private formartData(data: any) {
 
         if (this._options.decimalseparator === 'locale' && this.isFloat(data)) {
             return data.toLocaleString();
@@ -175,7 +172,7 @@ export class Angular2Csv {
      * Check if is Float
      * @param {any} input
      */
-    isFloat(input: any) {
+    private isFloat(input: any) {
         return +input === input && (!isFinite(input) || Boolean(input % 1));
     }
 }
@@ -213,8 +210,8 @@ function objectAssign(target: any, ...source: any[]) {
             }
         }
 
-        if ((<any>Object).getOwnPropertySymbols) {
-            symbols = (<any>Object).getOwnPropertySymbols(from);
+        if ((<any> Object).getOwnPropertySymbols) {
+            symbols = (<any> Object).getOwnPropertySymbols(from);
             for (let i = 0; i < symbols.length; i++) {
                 if (propIsEnumerable.call(from, symbols[i])) {
                     to[symbols[i]] = from[symbols[i]];

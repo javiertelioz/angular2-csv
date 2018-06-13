@@ -8,6 +8,7 @@ export interface Options {
     title: string;
     useBom: boolean;
     headers: string[];
+    keys: string[];
 }
 
 export class CsvConfigConsts {
@@ -24,6 +25,7 @@ export class CsvConfigConsts {
     public static DEFAULT_SHOW_LABELS = false;
     public static DEFAULT_USE_BOM = true;
     public static DEFAULT_HEADER: string[] = [];
+    public static DEFAULT_KEY: string[] = [];
 }
 
 export const ConfigDefaults: Options = {
@@ -36,6 +38,7 @@ export const ConfigDefaults: Options = {
     title: CsvConfigConsts.DEFAULT_TITLE,
     useBom: CsvConfigConsts.DEFAULT_USE_BOM,
     headers: CsvConfigConsts.DEFAULT_HEADER,
+    keys: CsvConfigConsts.DEFAULT_KEY
 };
 
 export class Angular2Csv {
@@ -122,11 +125,21 @@ export class Angular2Csv {
     getBody() {
         for (let i = 0; i < this.data.length; i++) {
             let row = '';
-            for (let index in this.data[i]) {
-                row += this.formartData(this.data[i][index]) + this._options.fieldSeparator;
+            if (this._options.keys && this._options.keys.length > 0) {
+                for (let index in this._options.keys) {
+                    let key = this._options.keys[index];
+                    row += this.formartData(this.data[i][key]) + this._options.fieldSeparator;
+                }
+                row = row.slice(0, -1);
+                this.csv += row + CsvConfigConsts.EOL;
+
+            } else {
+                for (let index in this.data[i]) {
+                    row += this.formartData(this.data[i][index]) + this._options.fieldSeparator;
+                }
+                row = row.slice(0, -1);
+                this.csv += row + CsvConfigConsts.EOL;
             }
-            row = row.slice(0, -1);
-            this.csv += row + CsvConfigConsts.EOL;
         }
     }
 

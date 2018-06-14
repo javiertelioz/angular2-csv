@@ -82,7 +82,7 @@ export class Angular2Csv {
             return;
         }
 
-        let blob = new Blob([this.csv], {'type': 'text/csv;charset=utf8;'});
+        let blob = new Blob([this.csv], {type: 'text/csv;charset=utf8;'});
 
         if (navigator.msSaveBlob) {
             let filename = this._options.filename.replace(/ /g, '_') + '.csv';

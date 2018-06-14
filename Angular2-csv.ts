@@ -121,18 +121,19 @@ export class Angular2Csv {
      * Create Body
      */
     private getBody() {
-        for (let i = 0; i < this.data.length; i++) {
+
+        for (let dataRow of this.data) {
             let row = '';
             if (this._options.keys && this._options.keys.length > 0) {
                 for (let key of this._options.keys) {
-                    row += this.formartData(this.data[i][key]) + this._options.fieldSeparator;
+                    row += this.formartData(dataRow[key]) + this._options.fieldSeparator;
                 }
                 row = row.slice(0, -1);
                 this.csv += row + CsvConfigConsts.EOL;
 
             } else {
-                for (let index in this.data[i]) {
-                    row += this.formartData(this.data[i][index]) + this._options.fieldSeparator;
+                for (let data of dataRow) {
+                    row += this.formartData(data) + this._options.fieldSeparator;
                 }
                 row = row.slice(0, -1);
                 this.csv += row + CsvConfigConsts.EOL;
@@ -213,9 +214,9 @@ function objectAssign(target: any, ...source: any[]) {
 
         if ((<any> Object).getOwnPropertySymbols) {
             symbols = (<any> Object).getOwnPropertySymbols(from);
-            for (let i = 0; i < symbols.length; i++) {
-                if (propIsEnumerable.call(from, symbols[i])) {
-                    to[symbols[i]] = from[symbols[i]];
+            for (let symbol of symbols) {
+                if (propIsEnumerable.call(from, symbol)) {
+                    to[symbol] = from[symbol];
                 }
             }
         }

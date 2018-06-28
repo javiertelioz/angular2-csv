@@ -2,15 +2,17 @@ export interface Options {
 	filename: string;
 	fieldSeparator: string;
 	quoteStrings: string;
-	decimalseparator:string;
+	decimalseparator: string;
+	showLabels: boolean;
 	showTitle: boolean;
 	title: string;
 	useBom: boolean;
 	headers: string[];
+	removeNewLines: boolean;
 }
 
 export class CsvConfigConsts {
-	
+
 	public static EOL = "\r\n";
 	public static BOM = "\ufeff";
 
@@ -22,18 +24,20 @@ export class CsvConfigConsts {
 	public static DEFAULT_FILENAME = 'mycsv.csv';
 	public static DEFAULT_USE_BOM = true;
 	public static DEFAULT_HEADER: string[] = [];
-
+  public static DEFAULT_REMOVE_NEW_LINES = false;
 }
 
 export const ConfigDefaults: Options = {
-	filename: 					CsvConfigConsts.DEFAULT_FILENAME,
-	fieldSeparator:			CsvConfigConsts.DEFAULT_FIELD_SEPARATOR,
-	quoteStrings:				CsvConfigConsts.DEFAULT_QUOTE,
-	decimalseparator:		CsvConfigConsts.DEFAULT_DECIMAL_SEPARATOR,
-	showTitle:					CsvConfigConsts.DEFAULT_SHOW_TITLE,
-	title: 							CsvConfigConsts.DEFAULT_TITLE,
-	useBom:					CsvConfigConsts.DEFAULT_USE_BOM,
-	headers: CsvConfigConsts.DEFAULT_HEADER
+	filename: CsvConfigConsts.DEFAULT_FILENAME,
+	fieldSeparator: CsvConfigConsts.DEFAULT_FIELD_SEPARATOR,
+	quoteStrings: CsvConfigConsts.DEFAULT_QUOTE,
+	decimalseparator: CsvConfigConsts.DEFAULT_DECIMAL_SEPARATOR,
+	showLabels: CsvConfigConsts.DEFAULT_SHOW_LABELS,
+	showTitle: CsvConfigConsts.DEFAULT_SHOW_TITLE,
+	title: CsvConfigConsts.DEFAULT_TITLE,
+	useBom: CsvConfigConsts.DEFAULT_USE_BOM,
+	headers: CsvConfigConsts.DEFAULT_HEADER,  
+  removeNewLines: CsvConfigConsts.DEFAULT_REMOVE_NEW_LINES
 };
 export class Angular2Csv {
 
@@ -43,43 +47,43 @@ export class Angular2Csv {
 	private _options: Options;
 	private csv = "";
 
-	constructor(DataJSON: any, filename:string, options?: any) {
+	constructor(DataJSON: any, filename: string, options?: any) {
 		let config = options || {};
 
 		this.data = typeof DataJSON != 'object' ? JSON.parse(DataJSON) : DataJSON;
-		
+
 		this._options = objectAssign({}, ConfigDefaults, config);
 
 		if (this._options.filename) {
-      this._options.filename = filename;
-    }
+			this._options.filename = filename;
+		}
 
-    this.generateCsv();
-  }
-  /**
-   * Generate and Download Csv
-   */
+		this.generateCsv();
+	}
+	/**
+	 * Generate and Download Csv
+	 */
 	private generateCsv(): void {
-		if(this._options.useBom) {
+		if (this._options.useBom) {
 			this.csv += CsvConfigConsts.BOM;
 		}
 
-		if(this._options.showTitle) {
+		if (this._options.showTitle) {
 			this.csv += this._options.title + '\r\n\n';
 		}
 
 		this.getHeaders();
 		this.getBody();
 
-		if(this.csv == '') {
+		if (this.csv == '') {
 			console.log("Invalid data");
 			return;
 		}
 
-		let blob = new Blob([this.csv], {"type": "text/csv;charset=utf8;"});
-	
-		if(navigator.msSaveBlob){
-			let filename = this._options.filename.replace(/ /g,"_") + ".csv";
+		let blob = new Blob([this.csv], { "type": "text/csv;charset=utf8;" });
+
+		if (navigator.msSaveBlob) {
+			let filename = this._options.filename.replace(/ /g, "_") + ".csv";
 			navigator.msSaveBlob(blob, filename);
 		} else {
 			let uri = 'data:attachment/csv;charset=utf-8,' + encodeURI(this.csv);
@@ -87,8 +91,8 @@ export class Angular2Csv {
 
 			link.href = URL.createObjectURL(blob);
 
-			link.setAttribute('visibility','hidden');
-			link.download = this._options.filename.replace(/ /g,"_") + ".csv";
+			link.setAttribute('visibility', 'hidden');
+			link.download = this._options.filename.replace(/ /g, "_") + ".csv";
 
 			document.body.appendChild(link);
 			link.click();
@@ -99,15 +103,16 @@ export class Angular2Csv {
 	 * Create Headers
 	 */
 	getHeaders(): void {
-		if (this._options.headers.length > 0) {
-            let row = "";
-            for (var column of this._options.headers) {
-                row += column + this._options.fieldSeparator;
+		this._options.headers.forEach( value => {
+            if(value.length > 0) {
+                let row = "";
+                for (var column of value) {
+                    row += column + this._options.fieldSeparator;
+                }
+                row = row.slice(0, -1);
+                this.csv += row + CsvConfigConsts.EOL;
             }
-
-            row = row.slice(0, -1);
-            this.csv += row + CsvConfigConsts.EOL;
-        }
+        });
   }
   /**
    * Create Body
@@ -118,45 +123,61 @@ export class Angular2Csv {
   		for (var index in this.data[i]) {
   			row += this.formartData(this.data[i][index]) + this._options.fieldSeparator;;
   		}
+			row = row.slice(0, -1);
+			this.csv += row + CsvConfigConsts.EOL;
+		}
+	}
+	/**
+	 * Create Body
+	 */
+	getBody() {
+		for (var i = 0; i < this.data.length; i++) {
+			let row = "";
+			for (var index in this.data[i]) {
+				row += this.formartData(this.data[i][index]) + this._options.fieldSeparator;;
+			}
 
 			row = row.slice(0, -1);
-  		this.csv += row + CsvConfigConsts.EOL;
-  	}
-  }
-  /**
-   * Format Data
-   * @param {any} data
-   */
-  formartData(data: any) {
+			this.csv += row + CsvConfigConsts.EOL;
+		}
+	}
+	/**
+	 * Format Data
+	 * @param {any} data
+	 */
+	formartData(data: any) {
 
-  	if (this._options.decimalseparator === 'locale' && this.isFloat(data)) {
-  		return data.toLocaleString();
-  	}
+		if (this._options.decimalseparator === 'locale' && this.isFloat(data)) {
+			return data.toLocaleString();
+		}
 
-  	if (this._options.decimalseparator !== '.' && this.isFloat(data)) {
-  		return data.toString().replace('.', this._options.decimalseparator);
-  	}
+		if (this._options.decimalseparator !== '.' && this.isFloat(data)) {
+			return data.toString().replace('.', this._options.decimalseparator);
+		}
 
-  	if (typeof data === 'string') {
-  		data = data.replace(/"/g, '""');
-  		if (this._options.quoteStrings || data.indexOf(',') > -1 || data.indexOf('\n') > -1 || data.indexOf('\r') > -1) {
-  			data = this._options.quoteStrings + data + this._options.quoteStrings;
-  		}
-  		return data;
-  	}
+		if (typeof data === 'string') {
+			data = data.replace(/"/g, '""');
+			if (this._options.removeNewLines) {
+				data = data.replace(/\n/g, "");
+			}
+			if (this._options.quoteStrings || data.indexOf(',') > -1 || data.indexOf('\n') > -1 || data.indexOf('\r') > -1) {
+				data = this._options.quoteStrings + data + this._options.quoteStrings;
+			}
+			return data;
+		}
 
-  	if (typeof data === 'boolean') {
-  		return data ? 'TRUE' : 'FALSE';
-  	}
-  	return data;
-  }
-  /**
-   * Check if is Float
-   * @param {any} input
-   */
-  isFloat(input: any) {
-  	return +input === input && (!isFinite(input) || Boolean(input % 1));
-  }
+		if (typeof data === 'boolean') {
+			return data ? 'TRUE' : 'FALSE';
+		}
+		return data;
+	}
+	/**
+	 * Check if is Float
+	 * @param {any} input
+	 */
+	isFloat(input: any) {
+		return +input === input && (!isFinite(input) || Boolean(input % 1));
+	}
 }
 
 let hasOwnProperty = Object.prototype.hasOwnProperty;
@@ -178,27 +199,27 @@ function toObject(val: any) {
  * @param {any[]} ...source
  */
 function objectAssign(target: any, ...source: any[]) {
-  let from: any;
-  let to = toObject(target);
-  let symbols: any;
-  
-  for (var s = 1; s < arguments.length; s++) {
-    from = Object(arguments[s]);
-    
-    for (var key in from) {
-      if (hasOwnProperty.call(from, key)) {
-        to[key] = from[key];
-      }
-    }
-    
-    if ((<any>Object).getOwnPropertySymbols) {
-      symbols = (<any>Object).getOwnPropertySymbols(from);
-      for (var i = 0; i < symbols.length; i++) {
-        if (propIsEnumerable.call(from, symbols[i])) {
-          to[symbols[i]] = from[symbols[i]];
-        }
-      }
-    }
-  }
-  return to;
+	let from: any;
+	let to = toObject(target);
+	let symbols: any;
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = Object(arguments[s]);
+
+		for (var key in from) {
+			if (hasOwnProperty.call(from, key)) {
+				to[key] = from[key];
+			}
+		}
+
+		if ((<any>Object).getOwnPropertySymbols) {
+			symbols = (<any>Object).getOwnPropertySymbols(from);
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					to[symbols[i]] = from[symbols[i]];
+				}
+			}
+		}
+	}
+	return to;
 }

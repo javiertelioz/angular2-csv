@@ -105,12 +105,26 @@ export class Angular2Csv {
 	 * Create Headers
 	 */
 	getHeaders(): void {
-		if (this._options.headers.length > 0) {
-			let row = "";
-			for (var column of this._options.headers) {
-				row += column + this._options.fieldSeparator;
-			}
-
+		this._options.headers.forEach( value => {
+            if(value.length > 0) {
+                let row = "";
+                for (var column of value) {
+                    row += column + this._options.fieldSeparator;
+                }
+                row = row.slice(0, -1);
+                this.csv += row + CsvConfigConsts.EOL;
+            }
+        });
+  }
+  /**
+   * Create Body
+   */
+  getBody() {
+  	for (var i = 0; i < this.data.length; i++) {
+  		let row = "";
+  		for (var index in this.data[i]) {
+  			row += this.formartData(this.data[i][index]) + this._options.fieldSeparator;;
+  		}
 			row = row.slice(0, -1);
 			this.csv += row + CsvConfigConsts.EOL;
 		}

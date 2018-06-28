@@ -22,10 +22,9 @@ export class CsvConfigConsts {
 	public static DEFAULT_SHOW_TITLE = false;
 	public static DEFAULT_TITLE = 'My Report';
 	public static DEFAULT_FILENAME = 'mycsv.csv';
-	public static DEFAULT_SHOW_LABELS = false;
 	public static DEFAULT_USE_BOM = true;
 	public static DEFAULT_HEADER: string[] = [];
-	public static DEFAULT_REMOVE_NEW_LINES = false;
+  public static DEFAULT_REMOVE_NEW_LINES = false;
 }
 
 export const ConfigDefaults: Options = {
@@ -37,13 +36,12 @@ export const ConfigDefaults: Options = {
 	showTitle: CsvConfigConsts.DEFAULT_SHOW_TITLE,
 	title: CsvConfigConsts.DEFAULT_TITLE,
 	useBom: CsvConfigConsts.DEFAULT_USE_BOM,
-	headers: CsvConfigConsts.DEFAULT_HEADER,
-	removeNewLines: CsvConfigConsts.DEFAULT_REMOVE_NEW_LINES
+	headers: CsvConfigConsts.DEFAULT_HEADER,  
+  removeNewLines: CsvConfigConsts.DEFAULT_REMOVE_NEW_LINES
 };
 export class Angular2Csv {
 
 	public fileName: string;
-	public labels: Array<String>;
 	public data: any[];
 
 	private _options: Options;

@@ -1,4 +1,5 @@
 export interface Options {
+
     filename: string;
     fieldSeparator: string;
     quoteStrings: string;
@@ -9,6 +10,7 @@ export interface Options {
     useBom: boolean;
     headers: string[];
     keys: string[];
+  	removeNewLines: boolean;
 }
 
 export class CsvConfigConsts {
@@ -26,6 +28,7 @@ export class CsvConfigConsts {
     public static DEFAULT_USE_BOM = true;
     public static DEFAULT_HEADER: string[] = [];
     public static DEFAULT_KEY: string[] = [];
+    public static DEFAULT_REMOVE_NEW_LINES = false;
 }
 
 export const ConfigDefaults: Options = {
@@ -38,7 +41,8 @@ export const ConfigDefaults: Options = {
     title: CsvConfigConsts.DEFAULT_TITLE,
     useBom: CsvConfigConsts.DEFAULT_USE_BOM,
     headers: CsvConfigConsts.DEFAULT_HEADER,
-    keys: CsvConfigConsts.DEFAULT_KEY
+    keys: CsvConfigConsts.DEFAULT_KEY,
+    removeNewLines: CsvConfigConsts.DEFAULT_REMOVE_NEW_LINES
 };
 
 export class Angular2Csv {
@@ -199,6 +203,7 @@ function toObject(val: any) {
  * @param {any[]} source
  */
 function objectAssign(target: any, ...source: any[]) {
+
     let from: any;
     let to = toObject(target);
     let symbols: any;

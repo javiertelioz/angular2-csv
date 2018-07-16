@@ -56,7 +56,7 @@ new Angular2Csv(data, 'My Report');
 | **title** |  filename | Csv title |
 | **useBom** | true      | If true, adds a BOM character at the start of the CSV |
 | **removeNewLines** | false      | If true, remove new lines from columns (Helps to remove special characters that can't recognized) |
-
+| **keys** | []      | If provided, would use this attribute to have an order of columns|
 
 **Example**
 ---
@@ -69,7 +69,8 @@ new Angular2Csv(data, 'My Report');
     headers: ['column 1 header', 'column 2 header'],
     showTitle: true,
     useBom: true,
-    removeNewLines: false
+    removeNewLines: false,
+    keys: []
   };
 
   Angular2Csv(data, filename, options);

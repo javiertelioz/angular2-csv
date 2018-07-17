@@ -6,16 +6,9 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "declaration": true,
-    "lib": [
-      "dom",
-      "es2015.collection",
-      "es2015.promise",
-      "es2015.iterable",
-      "es5"
-    ],
-    "moduleResolution": "node"
+    "declaration": true
   },
+  "lib": ["es2015", "dom"],
   "files": [
     "Angular2-csv.ts",
     "Angular2-csv.spec.ts",

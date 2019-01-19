@@ -4,3 +4,4 @@ Thumbs.db
 !karma.conf.js
 *.map
 *.iml
+node_modules

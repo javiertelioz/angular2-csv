@@ -20,6 +20,8 @@
     "angular-4",
     "angular-5",
     "angular-6",
+    "angular-7",
+    "angular-8",
     "export-to-csv",
     "export-to-excel",
     "csv",
@@ -28,8 +30,8 @@
     "openoffice"
   ],
   "peerDependencies": {
-    "@angular/common": "^7.0.0-rc.0 || ^7.0.0",
-    "@angular/core": "^7.0.0-rc.0 || ^7.0.0"
+    "@angular/common": "^8.0.0-rc.0 || ^8.0.0",
+    "@angular/core": "^8.0.0-rc.0 || ^8.0.0"
   },
   "main": "bundles/angular2-csv.umd.js",
   "module": "fesm5/angular2-csv.js",
